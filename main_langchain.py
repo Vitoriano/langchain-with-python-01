@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 
 from langchain_openai import ChatOpenAI
+from langchain.prompts import PromptTemplate
 
 load_dotenv()
 
@@ -11,8 +12,12 @@ llm = ChatOpenAI(
     temperature=0.5,
 ) 
 
-prompt = "Say this is a test"
+promptTemplate = PromptTemplate.from_template(
+  "Say this is a hello world from {name}"
+)
 
-resp =  llm.invoke(prompt)
+prompt = promptTemplate.format(name="vitoriano")
+
+resp = llm.invoke(prompt)
 
 print(resp.content)
